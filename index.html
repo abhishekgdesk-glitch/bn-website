@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Books & Numbers — Finance Centre of Excellence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #1C3829;
+    --green-mid: #2E5B42;
+    --green-light: #4A8C68;
+    --cream: #F5EFE0;
+    --cream-dark: #E8DECC;
+    --gold: #C49A3C;
+    --gold-light: #D4B060;
+    --text-light: rgba(245,239,224,0.75);
+    --text-lighter: rgba(245,239,224,0.45);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--cream);
+    color: var(--green);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 4rem;
+    background: rgba(28,56,41,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(196,154,60,0.2);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 14px; text-decoration: none;
+  }
+  .nav-icon svg { width: 36px; height: 36px; }
+  .nav-wordmark {
+    font-family: 'EB Garamond', serif;
+    font-size: 19px; color: var(--cream); line-height: 1.1; font-weight: 400;
+  }
+  .nav-wordmark .amp { color: var(--gold-light); font-style: italic; }
+  .nav-sub {
+    font-size: 7.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.5; margin-top: 2px; font-weight: 500;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.65; text-decoration: none;
+    font-weight: 500; transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: transparent; border: 0.5px solid var(--gold);
+    color: var(--gold-light); padding: 0.5rem 1.25rem;
+    font-weight: 500; cursor: pointer; font-family: 'Outfit', sans-serif;
+    text-decoration: none; transition: background 0.2s, color 0.2s;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--green); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--green);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 4rem 6rem;
+    position: relative; overflow: hidden;
+  }
+  .hero-pattern {
+    position: absolute; top: 0; right: 0; bottom: 0; width: 55%;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+  }
+  .hero-headline {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(48px, 6vw, 84px);
+    color: var(--cream); font-weight: 400; line-height: 1.1;
+    max-width: 780px; margin-bottom: 2rem;
+  }
+  .hero-headline em { color: var(--gold-light); font-style: italic; }
+  .hero-sub {
+    font-size: 16px; color: var(--text-light); max-width: 520px;
+    line-height: 1.75; margin-bottom: 3rem; font-weight: 300;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 2rem; }
+  .btn-primary {
+    display: inline-block;
+    background: var(--gold); color: var(--green);
+    font-size: 12px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.85rem 2.25rem;
+    text-decoration: none; font-family: 'Outfit', sans-serif;
+    transition: background 0.2s; cursor: pointer; border: none;
+  }
+  .btn-primary:hover { background: var(--gold-light); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--cream); opacity: 0.65; text-decoration: none;
+    font-weight: 500; transition: opacity 0.2s;
+  }
+  .btn-ghost:hover { opacity: 1; }
+  .btn-ghost::after {
+    content: '→'; font-style: normal;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 2.5rem; right: 4rem;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0.35;
+  }
+  .hero-scroll span {
+    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--cream); writing-mode: vertical-rl;
+  }
+  .scroll-line {
+    width: 0.5px; height: 60px; background: var(--cream);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+    50% { opacity: 1; transform: scaleY(1); }
+  }
+
+  /* SECTION COMMON */
+  section { padding: 7rem 4rem; }
+  .section-label {
+    font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 24px; height: 1px; background: var(--gold);
+  }
+  .section-headline {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 400; line-height: 1.2; color: var(--green);
+  }
+  .section-headline.light { color: var(--cream); }
+  .section-headline em { font-style: italic; color: var(--gold); }
+
+  /* PROBLEM SECTION */
+  .problem {
+    background: var(--cream); display: grid;
+    grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+  .problem-body {
+    font-size: 16px; color: #2E5B42; line-height: 1.85;
+    margin-top: 1.75rem; font-weight: 300;
+  }
+  .problem-body p + p { margin-top: 1.25rem; }
+  .gap-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .gap-card {
+    background: var(--green);
+    padding: 1.75rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .gap-card.inverted {
+    background: transparent;
+    border: 0.5px solid var(--green);
+  }
+  .gap-label {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 0.6rem;
+  }
+  .gap-card:not(.inverted) .gap-label { color: var(--gold); }
+  .gap-card.inverted .gap-label { color: var(--green-light); }
+  .gap-title {
+    font-family: 'EB Garamond', serif; font-size: 22px; font-weight: 400;
+  }
+  .gap-card:not(.inverted) .gap-title { color: var(--cream); }
+  .gap-card.inverted .gap-title { color: var(--green); }
+  .gap-desc {
+    font-size: 13px; margin-top: 0.5rem; font-weight: 300; line-height: 1.7;
+  }
+  .gap-card:not(.inverted) .gap-desc { color: var(--text-light); }
+  .gap-card.inverted .gap-desc { color: var(--green-mid); }
+  .gap-arrow {
+    font-family: 'EB Garamond', serif; font-size: 28px; color: var(--gold);
+    text-align: center; opacity: 0.6; padding: 0.25rem 0;
+  }
+
+  /* LAYERS SECTION */
+  .layers { background: var(--green); }
+  .layers-intro {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+    align-items: start; margin-bottom: 5rem;
+  }
+  .layers-body {
+    font-size: 15.5px; color: var(--text-light); line-height: 1.85;
+    margin-top: 1.75rem; font-weight: 300;
+  }
+  .layers-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px;
+    background: rgba(196,154,60,0.15);
+  }
+  .layer-card {
+    background: var(--green);
+    padding: 2.5rem 2.25rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+  .layer-card:hover { background: var(--green-mid); }
+  .layer-num {
+    font-family: 'EB Garamond', serif; font-size: 48px; color: var(--gold);
+    opacity: 0.25; line-height: 1; margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+  .layer-title {
+    font-family: 'EB Garamond', serif; font-size: 22px; font-weight: 400;
+    color: var(--cream); margin-bottom: 0.75rem;
+  }
+  .layer-tag {
+    font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--gold); font-weight: 500; margin-bottom: 0.75rem;
+  }
+  .layer-items {
+    list-style: none; display: flex; flex-direction: column; gap: 6px;
+  }
+  .layer-items li {
+    font-size: 13px; color: var(--text-light); font-weight: 300;
+    display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+  }
+  .layer-items li::before {
+    content: '—'; color: var(--gold); opacity: 0.5; flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* WHO WE SERVE */
+  .serve { background: var(--cream-dark); }
+  .serve-grid {
+    display: grid; grid-template-columns: repeat(3,1fr); gap: 1px;
+    background: rgba(28,56,41,0.12); margin-top: 3.5rem;
+  }
+  .serve-card {
+    background: var(--cream-dark); padding: 2.5rem 2rem;
+    transition: background 0.2s;
+  }
+  .serve-card:hover { background: var(--cream); }
+  .serve-icon {
+    width: 40px; height: 40px; margin-bottom: 1.25rem;
+  }
+  .serve-title {
+    font-family: 'EB Garamond', serif; font-size: 21px;
+    color: var(--green); margin-bottom: 0.75rem; font-weight: 400;
+  }
+  .serve-desc {
+    font-size: 13.5px; color: var(--green-mid); line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* DIFFERENCE */
+  .difference { background: var(--green); }
+  .diff-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    margin-top: 4rem;
+  }
+  .diff-col-label {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 1.5rem; padding-bottom: 1rem;
+    border-bottom: 0.5px solid rgba(245,239,224,0.1);
+    color: var(--text-lighter);
+  }
+  .diff-col-label.highlight { color: var(--gold); border-bottom-color: var(--gold); }
+  .diff-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    padding: 1.1rem 0; border-bottom: 0.5px solid rgba(245,239,224,0.06);
+  }
+  .diff-item:last-child { border-bottom: none; }
+  .diff-check {
+    width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px;
+  }
+  .diff-text {
+    font-size: 14px; font-weight: 300; line-height: 1.6;
+  }
+  .diff-item.muted .diff-text { color: var(--text-lighter); }
+  .diff-item.active .diff-text { color: var(--cream); }
+
+  /* ABOUT */
+  .about {
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: center;
+  }
+  .about-body {
+    font-size: 15.5px; color: var(--green-mid); line-height: 1.85;
+    margin-top: 1.5rem; font-weight: 300;
+  }
+  .about-body p + p { margin-top: 1rem; }
+  .about-creds {
+    display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2.5rem;
+  }
+  .cred {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12.5px; color: var(--green); font-weight: 400;
+  }
+  .cred::before {
+    content: ''; display: block; width: 4px; height: 4px;
+    background: var(--gold); border-radius: 50%; flex-shrink: 0;
+  }
+  .about-visual {
+    background: var(--green);
+    padding: 3.5rem 3rem;
+  }
+  .about-stat {
+    padding: 1.5rem 0;
+    border-bottom: 0.5px solid rgba(245,239,224,0.1);
+  }
+  .about-stat:last-child { border-bottom: none; }
+  .stat-num {
+    font-family: 'EB Garamond', serif; font-size: 44px;
+    color: var(--gold-light); font-weight: 400; line-height: 1;
+  }
+  .stat-label {
+    font-size: 13px; color: var(--text-light); margin-top: 0.35rem;
+    font-weight: 300;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: var(--green);
+    padding: 8rem 4rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-pattern {
+    position: absolute; inset: 0; pointer-events: none; opacity: 0.04;
+  }
+  .cta-body {
+    font-size: 15.5px; color: var(--text-light); max-width: 500px;
+    margin: 1.5rem auto 3rem; font-weight: 300; line-height: 1.8;
+  }
+  .cta-actions { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .cta-contact {
+    font-size: 13px; color: var(--text-lighter); margin-top: 2.5rem;
+    letter-spacing: 0.04em;
+  }
+  .cta-contact a { color: var(--gold); text-decoration: none; }
+
+  /* FOOTER */
+  footer {
+    background: #111f17;
+    padding: 3rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-copy {
+    font-size: 12px; color: rgba(245,239,224,0.3); font-weight: 300;
+  }
+  .footer-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .footer-links a {
+    font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase;
+    color: rgba(245,239,224,0.3); text-decoration: none;
+    transition: color 0.2s; font-weight: 500;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .fade-in-delay-1 { transition-delay: 0.1s; }
+  .fade-in-delay-2 { transition-delay: 0.2s; }
+  .fade-in-delay-3 { transition-delay: 0.3s; }
+  .fade-in-delay-4 { transition-delay: 0.4s; }
+
+  /* RULE ORNAMENT */
+  .ornament {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 0.75rem; opacity: 0.2;
+  }
+  .ornament-line { flex: 1; height: 0.5px; background: var(--gold); }
+  .ornament-diamond {
+    width: 6px; height: 6px; background: var(--gold);
+    transform: rotate(45deg);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links, .nav-cta { display: none; }
+    section { padding: 4rem 1.5rem; }
+    .problem, .layers-intro, .diff-cols, .about { grid-template-columns: 1fr; gap: 3rem; }
+    .serve-grid { grid-template-columns: 1fr; }
+    .layers-grid { grid-template-columns: 1fr; }
+    .hero { padding: 0 1.5rem 5rem; }
+    footer { padding: 2rem 1.5rem; flex-direction: column; gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-icon">
+      <svg viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="4" y="4" width="20" height="26" rx="3" fill="#F5EFE0"/>
+        <rect x="4" y="34" width="20" height="14" rx="3" fill="#D4B060"/>
+        <rect x="28" y="4" width="20" height="14" rx="3" fill="#D4B060"/>
+        <rect x="28" y="22" width="20" height="26" rx="3" fill="#F5EFE0"/>
+      </svg>
+    </div>
+    <div>
+      <div class="nav-wordmark">Books <span class="amp">&amp;</span> Numbers</div>
+      <div class="nav-sub">Finance · Advisory · Compliance</div>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#what-we-do">What We Do</a></li>
+    <li><a href="#who-we-serve">Who We Serve</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="hero-pattern" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect x="40" y="40" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.05"/>
+    <rect x="40" y="172" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.07"/>
+    <rect x="136" y="40" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.07"/>
+    <rect x="136" y="108" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.05"/>
+    <rect x="232" y="40" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.05"/>
+    <rect x="232" y="172" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.07"/>
+    <rect x="328" y="40" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.07"/>
+    <rect x="328" y="108" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.05"/>
+    <rect x="424" y="40" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.05"/>
+    <rect x="424" y="172" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.07"/>
+    <rect x="40" y="300" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.04"/>
+    <rect x="136" y="300" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.05"/>
+    <rect x="232" y="300" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.04"/>
+    <rect x="328" y="368" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.05"/>
+    <rect x="424" y="300" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.04"/>
+    <rect x="40" y="520" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.03"/>
+    <rect x="136" y="480" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.03"/>
+    <rect x="232" y="520" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.03"/>
+    <rect x="328" y="480" width="80" height="120" rx="8" fill="#F5EFE0" opacity="0.03"/>
+    <rect x="424" y="520" width="80" height="56" rx="8" fill="#C49A3C" opacity="0.03"/>
+  </svg>
+
+  <div class="hero-eyebrow fade-in">Finance Centre of Excellence</div>
+  <h1 class="hero-headline fade-in fade-in-delay-1">
+    Your finance function,<br><em>architecturally</em> built<br>to scale with you.
+  </h1>
+  <p class="hero-sub fade-in fade-in-delay-2">
+    Growing businesses rarely lack finance execution. What they lack is finance architecture — the systems, processes, and team design that let them grow with confidence. That's what we build.
+  </p>
+  <div class="hero-actions fade-in fade-in-delay-3">
+    <a href="#contact" class="btn-primary">Start a Conversation</a>
+    <a href="#what-we-do" class="btn-ghost">See what we do</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="about-problem">
+  <div>
+    <div class="section-label">The Gap</div>
+    <h2 class="section-headline">Most growing businesses have <em>execution</em> without <em>architecture.</em></h2>
+    <div class="problem-body">
+      <p>You have someone doing the books. You have compliance covered. But when you need a clear financial picture to make a call — it isn't there. When you bring on a new accounting hire, they have no framework to plug into. When you implement a new ERP, no one's designed the chart of accounts around how your business actually works.</p>
+      <p>That's the gap between finance execution and finance architecture. Books & Numbers was built to close it.</p>
+    </div>
+  </div>
+  <div>
+    <div class="gap-cards">
+      <div class="gap-card inverted">
+        <div class="gap-label">What most businesses have</div>
+        <div class="gap-title">Finance Execution</div>
+        <div class="gap-desc">Bookkeeping, compliance, routine accounting. Essential, but insufficient for a scaling business.</div>
+      </div>
+      <div class="gap-arrow">↓</div>
+      <div class="gap-card">
+        <div class="gap-label">What scaling businesses need</div>
+        <div class="gap-title">Finance Architecture</div>
+        <div class="gap-desc">Process design, system configuration, reporting structures, team design — the infrastructure behind the numbers.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LAYERS / WHAT WE DO -->
+<section class="layers" id="what-we-do">
+  <div class="layers-intro">
+    <div>
+      <div class="section-label">What We Do</div>
+      <h2 class="section-headline light">Four layers.<br>One <em>integrated</em> finance function.</h2>
+    </div>
+    <div class="layers-body">
+      We work across the full stack of your finance function — from the standards and processes that govern it, to the systems that run it, to the day-to-day execution, to building the team that sustains it. You can engage us at any layer, or across all four.
+    </div>
+  </div>
+
+  <div class="layers-grid">
+    <div class="layer-card">
+      <div class="layer-num">01</div>
+      <div class="layer-tag">Standards & Methodology</div>
+      <div class="layer-title">Process Design & Controls</div>
+      <ul class="layer-items">
+        <li>Finance process mapping and SOPs</li>
+        <li>Internal controls and approval frameworks</li>
+        <li>Policy design (expense, procurement, treasury)</li>
+        <li>Risk and Control Matrix (RCM) development</li>
+        <li>Chart of accounts architecture</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">02</div>
+      <div class="layer-tag">Systems & Tools</div>
+      <div class="layer-title">ERP & Reporting Infrastructure</div>
+      <ul class="layer-items">
+        <li>ERP configuration and optimisation (Odoo, SAP)</li>
+        <li>MIS and management reporting design</li>
+        <li>Dashboard and BI setup</li>
+        <li>Workflow automation and approval tools</li>
+        <li>Intercompany and consolidation architecture</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">03</div>
+      <div class="layer-tag">Execution</div>
+      <div class="layer-title">Accounting & Compliance</div>
+      <ul class="layer-items">
+        <li>Month-end close and management accounts</li>
+        <li>GST, TDS, and Indian statutory compliance</li>
+        <li>FEMA and cross-border transaction management</li>
+        <li>Transfer pricing documentation (Form 3CEB)</li>
+        <li>Accounts payable and receivable oversight</li>
+      </ul>
+    </div>
+    <div class="layer-card">
+      <div class="layer-num">04</div>
+      <div class="layer-tag">Capability Building</div>
+      <div class="layer-title">Team & Knowledge Transfer</div>
+      <ul class="layer-items">
+        <li>Finance team structuring and role design</li>
+        <li>Hiring support and profile assessment</li>
+        <li>Onboarding frameworks and KT programmes</li>
+        <li>Finance Controller transition management</li>
+        <li>Ongoing coaching and escalation support</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHO WE SERVE -->
+<section class="serve" id="who-we-serve">
+  <div class="section-label">Who We Serve</div>
+  <h2 class="section-headline">Built for founders and operators<br>who are <em>building something real.</em></h2>
+
+  <div class="serve-grid">
+    <div class="serve-card">
+      <svg class="serve-icon" viewBox="0 0 40 40" fill="none">
+        <path d="M8 32V20L20 10L32 20V32" stroke="#1C3829" stroke-width="1.5" stroke-linejoin="round"/>
+        <rect x="15" y="22" width="10" height="10" stroke="#C49A3C" stroke-width="1.5"/>
+      </svg>
+      <div class="serve-title">Scaling Startups & SMEs</div>
+      <div class="serve-desc">You're growing faster than your finance function. Revenue is up but your reporting is still a spreadsheet and month-end takes two weeks. We bring structure without bureaucracy.</div>
+    </div>
+    <div class="serve-card">
+      <svg class="serve-icon" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="14" r="6" stroke="#1C3829" stroke-width="1.5"/>
+        <path d="M8 34C8 27.373 13.373 22 20 22C26.627 22 32 27.373 32 34" stroke="#1C3829" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M28 10L34 16M34 10L28 16" stroke="#C49A3C" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="serve-title">Businesses in Transition</div>
+      <div class="serve-desc">Replacing a finance leader, migrating to a new ERP, or reorganising after a funding round. You need someone who can hold the function steady while building for the future.</div>
+    </div>
+    <div class="serve-card">
+      <svg class="serve-icon" viewBox="0 0 40 40" fill="none">
+        <rect x="6" y="10" width="28" height="20" rx="2" stroke="#1C3829" stroke-width="1.5"/>
+        <path d="M14 20H26M20 14V26" stroke="#C49A3C" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <div class="serve-title">Cross-Border Operations</div>
+      <div class="serve-desc">India-incorporated businesses with US entities, global clients, or intercompany complexity. FEMA, transfer pricing, and multi-entity consolidations are our terrain.</div>
+    </div>
+  </div>
+</section>
+
+<!-- THE DIFFERENCE -->
+<section class="difference">
+  <div class="section-label">The B&N Difference</div>
+  <h2 class="section-headline light">We bring <em>architecture,</em><br>not just accounting.</h2>
+
+  <div class="diff-cols">
+    <div>
+      <div class="diff-col-label">The typical arrangement</div>
+      <div class="diff-item muted">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="rgba(245,239,224,0.15)" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="rgba(245,239,224,0.15)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">Compliance completed on time, but no insight from it</span>
+      </div>
+      <div class="diff-item muted">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="rgba(245,239,224,0.15)" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="rgba(245,239,224,0.15)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">Books maintained, but no system design behind them</span>
+      </div>
+      <div class="diff-item muted">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="rgba(245,239,224,0.15)" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="rgba(245,239,224,0.15)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">Reporting exists, but founders can't act on it</span>
+      </div>
+      <div class="diff-item muted">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="rgba(245,239,224,0.15)" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="rgba(245,239,224,0.15)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">Finance team hired, but no onboarding framework to absorb them</span>
+      </div>
+    </div>
+    <div>
+      <div class="diff-col-label highlight">The Books & Numbers engagement</div>
+      <div class="diff-item active">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="#C49A3C" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="#C49A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">Compliance that feeds a decision-ready reporting structure</span>
+      </div>
+      <div class="diff-item active">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="#C49A3C" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="#C49A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">Books designed around how your business actually works</span>
+      </div>
+      <div class="diff-item active">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="#C49A3C" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="#C49A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">MIS that a founder can read, question, and act on</span>
+      </div>
+      <div class="diff-item active">
+        <svg class="diff-check" viewBox="0 0 20 20" fill="none">
+          <circle cx="10" cy="10" r="9" stroke="#C49A3C" stroke-width="1"/>
+          <path d="M7 10L9 12L13 8" stroke="#C49A3C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="diff-text">Team transitions managed with structured KT and handover frameworks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <div class="section-label">About</div>
+    <h2 class="section-headline">Senior CA partnership,<br><em>hands-on</em> in every engagement.</h2>
+    <div class="about-body">
+      <p>Books & Numbers is a Bengaluru-based Finance Centre of Excellence run by Chartered Accountants with experience across large Indian corporates, US-facing subsidiaries, and fast-moving SMEs.</p>
+      <p>We operate as embedded finance partners — not as back-office vendors. When you engage us, you get senior thinking applied directly to your function, not delegated down a bench.</p>
+    </div>
+    <div class="about-creds">
+      <div class="cred">Chartered Accountants (ICAI)</div>
+      <div class="cred">Experience across FMCG, technology, real estate, and manufacturing</div>
+      <div class="cred">SAP, Odoo, Tally — multi-ERP capability</div>
+      <div class="cred">Cross-border and intercompany specialisation</div>
+      <div class="cred">Bengaluru-based, available across India</div>
+    </div>
+  </div>
+  <div class="about-visual">
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+    <div class="about-stat">
+      <div class="stat-num">4</div>
+      <div class="stat-label">Service layers across the full finance stack</div>
+    </div>
+    <div class="about-stat">
+      <div class="stat-num">Multi-ERP</div>
+      <div class="stat-label">SAP · Odoo · Tally · QuickBooks</div>
+    </div>
+    <div class="about-stat">
+      <div class="stat-num">India ↔ US</div>
+      <div class="stat-label">Cross-border, FEMA, and transfer pricing ready</div>
+    </div>
+    <div class="about-stat">
+      <div class="stat-num">CoE</div>
+      <div class="stat-label">Finance Centre of Excellence — architecture, not just accounting</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <svg class="cta-pattern" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice">
+    <rect x="100" y="60" width="60" height="90" rx="6" fill="#F5EFE0"/>
+    <rect x="100" y="158" width="60" height="42" rx="6" fill="#C49A3C"/>
+    <rect x="174" y="60" width="60" height="42" rx="6" fill="#C49A3C"/>
+    <rect x="174" y="110" width="60" height="90" rx="6" fill="#F5EFE0"/>
+    <rect x="248" y="60" width="60" height="90" rx="6" fill="#F5EFE0"/>
+    <rect x="248" y="158" width="60" height="42" rx="6" fill="#C49A3C"/>
+    <rect x="500" y="200" width="60" height="90" rx="6" fill="#F5EFE0"/>
+    <rect x="574" y="200" width="60" height="42" rx="6" fill="#C49A3C"/>
+    <rect x="648" y="160" width="60" height="90" rx="6" fill="#F5EFE0"/>
+  </svg>
+
+  <div class="section-label" style="justify-content:center; margin-bottom:2rem;">Get in Touch</div>
+  <h2 class="section-headline light" style="max-width:600px; margin:0 auto;">
+    Ready to build a finance function that keeps pace with your growth?
+  </h2>
+  <p class="cta-body">
+    Tell us where you are and what you're trying to fix. We'll come back with a view on what an engagement looks like.
+  </p>
+  <div class="cta-actions">
+    <a href="mailto:hello@booksandnumbers.in" class="btn-primary">Email Us</a>
+  </div>
+  <p class="cta-contact">
+    Or write to us at <a href="mailto:hello@booksandnumbers.in">hello@booksandnumbers.in</a> · Bengaluru, India
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex; align-items:center; gap:12px;">
+    <svg width="28" height="28" viewBox="0 0 52 52" fill="none">
+      <rect x="4" y="4" width="20" height="26" rx="3" fill="rgba(245,239,224,0.25)"/>
+      <rect x="4" y="34" width="20" height="14" rx="3" fill="rgba(196,154,60,0.4)"/>
+      <rect x="28" y="4" width="20" height="14" rx="3" fill="rgba(196,154,60,0.4)"/>
+      <rect x="28" y="22" width="20" height="26" rx="3" fill="rgba(245,239,224,0.25)"/>
+    </svg>
+    <span class="footer-copy">© 2025 Books & Numbers. Bengaluru, India.</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="#what-we-do">Services</a></li>
+    <li><a href="#who-we-serve">Clients</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  const sectionEls = document.querySelectorAll('.gap-card, .layer-card, .serve-card, .diff-item, .about-stat');
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.08 });
+  sectionEls.forEach((el, i) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
+    el.style.transition = `opacity 0.5s ease ${(i % 4) * 0.08}s, transform 0.5s ease ${(i % 4) * 0.08}s, background 0.3s`;
+    sectionObserver.observe(el);
+  });
+</script>
+</body>
+</html>
